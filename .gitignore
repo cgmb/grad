@@ -1,0 +1,7 @@
+# build files
+.build
+.debug
+
+# editor files
+*.swp
+/.ycm_extra_conf.py*
