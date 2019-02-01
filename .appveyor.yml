@@ -1,0 +1,19 @@
+version: '{build}'
+
+image:
+  - Ubuntu1604
+  - Ubuntu1804
+
+platform:
+  - x86
+  - x64
+
+install:
+  - sudo apt-get -qq update
+  - sudo apt-get -qq install libglfw3-dev pkg-config cmake build-essential ninja-build
+
+build_script:
+  - cmake -H. -Bbuild -G Ninja
+  - cmake --build build
+
+test: off
