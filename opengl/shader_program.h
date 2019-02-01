@@ -1,7 +1,7 @@
 #ifndef SHADER_PROGRAM_H
 #define SHADER_PROGRAM_H
 
-#include <GL/glut.h>
+#include <glad/glad.h>
 #include "math/matrix_math.h"
 
 struct ShaderProgram {
