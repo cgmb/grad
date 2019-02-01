@@ -1,5 +1,3 @@
-#define GL_GLEXT_PROTOTYPES
-#include <GL/gl.h>
 #include "opengl/shader_program.h"
 #include "opengl/opengl_common.h"
 
