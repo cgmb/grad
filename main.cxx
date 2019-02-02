@@ -28,6 +28,9 @@ const float k_lines[] = {
   -0.50f, 0.00f,
 };
 
+extern const char* const k_shaders_gradient_vert;
+extern const char* const k_shaders_gradient_frag;
+
 struct GradientShaderParams {
   enum {
     MVP_VID,
@@ -120,7 +123,8 @@ void init() {
   print_opengl_version();
   init_colormap();
 
-  g_gradient.shader.load("shaders/gradient.vert", "shaders/gradient.frag");
+  g_gradient.shader.load_with_fallback("shaders/gradient.vert", k_shaders_gradient_vert,
+                                       "shaders/gradient.frag", k_shaders_gradient_frag);
   query_uniform_locations(&g_gradient.shader, GradientShaderParams::COUNT,
       k_gradient_attributes, g_gradient.ids);
 

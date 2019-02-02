@@ -2,6 +2,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "glad/glad.h"
 #include "opengl/opengl_common.h"
 
@@ -124,6 +125,39 @@ const char* vertex_shader_name, const char* fragment_shader_name) {
   glDeleteShader(frag_shader);
 
   return program;
+}
+
+GLuint load_shaders_with_fallback(
+const char* vertex_shader_name,
+const char* default_vertex_shader_text,
+const char* fragment_shader_name,
+const char* default_fragment_shader_text) {
+  int vert_shader_length;
+  char* loaded_vert_shader_text = load_file(vertex_shader_name, &vert_shader_length);
+  const char* vert_shader_text = loaded_vert_shader_text;
+  if (!vert_shader_text) {
+    fprintf(stderr, "Using default for %s\n", vertex_shader_name);
+    vert_shader_text = default_vertex_shader_text;
+    vert_shader_length = strlen(default_vertex_shader_text);
+  }
+  int frag_shader_length;
+  char* loaded_frag_shader_text = load_file(fragment_shader_name, &frag_shader_length);
+  const char* frag_shader_text = loaded_frag_shader_text;
+  if (!frag_shader_text) {
+    fprintf(stderr, "Using default for %s\n", fragment_shader_name);
+    frag_shader_text = default_fragment_shader_text;
+    frag_shader_length = strlen(default_fragment_shader_text);
+  }
+
+  GLuint shader = load_shaders_from_string(
+    vert_shader_text, vert_shader_length,
+    frag_shader_text, frag_shader_length,
+    vertex_shader_name, fragment_shader_name);
+
+  free(loaded_vert_shader_text);
+  free(loaded_frag_shader_text);
+
+  return shader;
 }
 
 GLuint load_shaders(

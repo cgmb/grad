@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8.12)
 project(grad)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 include(AutoCCache)
+include(IncludeShaders)
 find_package(glfw3 REQUIRED)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -35,6 +36,11 @@ if(WIN32)
   )
 endif()
 
+add_shaders(SHADERS
+  shaders/gradient.frag
+  shaders/gradient.vert
+)
+
 add_executable(grad
   main.cxx
   opengl/opengl_common.cxx
@@ -43,6 +49,7 @@ add_executable(grad
   opengl/mesh.cxx
   misc/colormap.cxx
   3rdparty/glad/src/glad.c
+  ${SHADERS}
 )
 target_link_libraries(grad
   glfw

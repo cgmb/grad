@@ -14,6 +14,12 @@ void ShaderProgram::load(const char* vertex, const char* fragment, const char* g
   program_id_ = load_shaders(vertex, fragment, geometry);
 }
 
+void ShaderProgram::load_with_fallback(const char* vertex, const char* vertex_fallback,
+  const char* fragment, const char* fragment_fallback) {
+  program_id_ = load_shaders_with_fallback(
+    vertex, vertex_fallback, fragment, fragment_fallback);
+}
+
 void ShaderProgram::load_text(const char* vertex, int vertex_size,
                                const char* fragment, int fragment_size) {
   const int shader_count = 2;

@@ -27,6 +27,13 @@ GLuint load_shaders(
   const char* geometry_shader_name
 );
 
+GLuint load_shaders_with_fallback(
+  const char* vertex_shader_name,
+  const char* default_vertex_shader_text,
+  const char* fragment_shader_name,
+  const char* default_fragment_shader_text
+);
+
 GLuint load_shaders_from_string(
   const char* vert_shader_text, int vert_shader_length,
   const char* frag_shader_text, int frag_shader_length,

@@ -9,6 +9,8 @@ struct ShaderProgram {
 
   void load(const char* vertex, const char* fragment);
   void load(const char* vertex, const char* fragment, const char* geometry);
+  void load_with_fallback(const char* vertex, const char* vertex_fallback,
+                          const char* fragment, const char* fragment_fallback);
   void load_text(const char* vertex, int vertex_size,
                  const char* fragment, int fragment_size);
   void load_text(const char* vertex, int vertex_size,
