@@ -1,6 +1,9 @@
 version: '{build}'
 
 image:
+  - Visual Studio 2013
+  - Visual Studio 2015
+  - Visual Studio 2017
   - Ubuntu1604
   - Ubuntu1804
 
@@ -9,11 +12,20 @@ platform:
   - x64
 
 install:
-  - sudo apt-get -qq update
-  - sudo apt-get -qq install libglfw3-dev pkg-config cmake build-essential ninja-build
+  - sh: |
+      sudo apt-get -qq update
+      sudo apt-get -qq install libglfw3-dev pkg-config cmake build-essential ninja-build
+  - cmd: |
+      vcpkg install glfw3:x86-windows glfw3:x64-windows
+      cd c:\tools\vcpkg
+      vcpkg integrate install
 
 build_script:
-  - cmake -H. -Bbuild -G Ninja
-  - cmake --build build
+  - sh: |
+      cmake -H. -Bbuild -G Ninja
+      cmake --build build
+  - cmd: |
+      cmake -H. -Bbuild -DCMAKE_TOOLCHAIN_FILE=c:/tools/vcpkg/scripts/buildsystems/vcpkg.cmake
+      cmake --build build
 
 test: off
