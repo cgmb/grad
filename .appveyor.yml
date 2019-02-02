@@ -16,8 +16,9 @@ install:
       sudo apt-get -qq install libglfw3-dev pkg-config cmake build-essential ninja-build
   - cmd: |
       vcpkg install glfw3:x86-windows glfw3:x64-windows
-      cd c:\tools\vcpkg
+      pushd c:\tools\vcpkg
       vcpkg integrate install
+      popd
 
 build_script:
   - sh: |
