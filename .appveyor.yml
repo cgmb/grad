@@ -29,3 +29,6 @@ build_script:
       cmake --build build
 
 test: off
+
+cache:
+  - c:\tools\vcpkg\installed\ -> .appveyor.yml
