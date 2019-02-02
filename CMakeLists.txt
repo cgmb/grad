@@ -27,6 +27,14 @@ if(UNIX)
   endif()
 endif()
 
+if(WIN32)
+  set(DEFINES
+    _CRT_SECURE_NO_WARNINGS
+    _USE_MATH_DEFINES
+    NOMINMAX
+  )
+endif()
+
 add_executable(grad
   main.cxx
   opengl/opengl_common.cxx
@@ -45,4 +53,7 @@ target_include_directories(grad SYSTEM PRIVATE
 )
 target_include_directories(grad PRIVATE
   .
+)
+target_compile_definitions(grad PRIVATE
+  ${DEFINES}
 )
