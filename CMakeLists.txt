@@ -2,14 +2,15 @@ cmake_minimum_required(VERSION 2.8.12)
 project(grad)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 include(AutoCCache)
-find_package(PkgConfig REQUIRED)
-pkg_search_module(GLFW REQUIRED glfw3)
+find_package(glfw3 REQUIRED)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 if(UNIX)
+  set(GLAD_LIBRARIES "dl")
+
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=return-type")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=reorder")
@@ -36,10 +37,10 @@ add_executable(grad
   3rdparty/glad/src/glad.c
 )
 target_link_libraries(grad
-  ${GLFW_STATIC_LIBRARIES}
+  glfw
+  ${GLAD_LIBRARIES}
 )
 target_include_directories(grad SYSTEM PRIVATE
-  ${GLFW_INCLUDE_DIRS}
   3rdparty/glad/include
 )
 target_include_directories(grad PRIVATE
