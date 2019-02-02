@@ -16,9 +16,9 @@ install:
       sudo apt-get -qq install libglfw3-dev pkg-config cmake build-essential ninja-build
   - cmd: |
       vcpkg install glfw3:x86-windows glfw3:x64-windows
-      pushd c:\tools\vcpkg
+      cd c:\tools\vcpkg
       vcpkg integrate install
-      popd
+      cd %APPVEYOR_BUILD_FOLDER%
 
 build_script:
   - sh: |
